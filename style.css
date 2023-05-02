@@ -1,6 +1,7 @@
 html {
   padding: 0;
   border-radius: 12px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -9,10 +10,6 @@ body {
   margin: 0;
   background-color: #0e0e23;
   background: linear-gradient(circle, #070727 100%, #04042b 0%);
-}
-
-img {
-  width: 100px;
 }
 
 .hero {
@@ -26,9 +23,9 @@ img {
 .hero img {
   opacity: 0.8;
   position: absolute;
-  left: 45%;
+  left: 50%;
   top: 15%;
-  width: 50%;
+  width: 45%;
   border-radius: 20% 14px 20%;
   filter: brightness(42px);
   filter: grayscale(20%);
@@ -40,13 +37,12 @@ img {
   grid-template-columns: 40% auto;
   gap: 12px;
   padding: 12px 24px;
-  width: 100%;
   background: rgb(0, 2, 16);
   background: radial-gradient(circle, #9b9ca7 rgb(0, 3, 20) 100%, rgb(19, 22, 47) 0%);
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 2;
   box-shadow: 0 4px 4px #00000e;
 }
 .hero .nav-bar .logo {
@@ -89,7 +85,8 @@ img {
   flex-wrap: wrap;
   color: #cbcbff;
   width: 50%;
-  padding: 15% 15% 12px 2%;
+  padding: 10% 15% 12px 2%;
+  background-color: rgba(0, 0, 14, 0.3411764706);
 }
 .hero .description h1 {
   font-size: 2rem;
@@ -116,19 +113,16 @@ img {
   flex-wrap: wrap;
   width: 80%;
   color: white;
-  padding: auto 12px;
+  align-content: flex-start;
+  padding: auto 6px;
 }
 .hero .description .cta a {
-  margin: auto;
+  margin: auto 12px;
   text-decoration: none;
   color: #cbcbff;
-  padding: 12px 6px;
+  padding: 12px 16px;
   border-radius: 6px;
   border: 2px solid blueviolet;
-}
-.hero .description .cta a:nth-child(1) {
-  border: 1px ridge white;
-  padding: 12px 12px;
 }
 .hero .description .cta a:hover {
   opacity: 0.7;
@@ -183,7 +177,7 @@ img {
   color: black;
   width: -moz-max-content;
   width: max-content;
-  margin-top: 15%;
+  margin-top: 5%;
   text-decoration: none;
   font-weight: 800;
   font-size: 1.2rem;
@@ -320,7 +314,10 @@ footer .socials h4 {
   font-weight: 900;
   font-size: 1.3rem;
 }
-footer .socials img {
+footer .socials a {
+  margin: 12px;
+}
+footer .socials a img {
   width: 1.5rem;
   height: 1.5rem;
   padding: 2px;
@@ -340,4 +337,48 @@ footer .license {
   color: burlywood;
   display: block;
   width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .hero img {
+    top: 20%;
+    left: 25%;
+    border-radius: 10%;
+  }
+  .hero .nav-bar .nav-links a {
+    display: none;
+  }
+  .hero .nav-bar .nav-links a:last-of-type {
+    display: flex;
+    border: 1px solid white;
+  }
+  .hero .description {
+    margin-top: 45%;
+    align-self: center;
+    width: auto;
+    padding-left: 12%;
+  }
+  .about {
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 12%;
+  }
+  .services {
+    padding: 1rem;
+  }
+  .services h1 {
+    left: 30%;
+  }
+  .services div {
+    margin: 20% 12px 12px 12px;
+  }
+  .skills {
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 12px;
+  }
+  .skills .frameworks h2,
+  .skills .languages h2 {
+    text-align: center;
+  }
 }/*# sourceMappingURL=style.css.map */
