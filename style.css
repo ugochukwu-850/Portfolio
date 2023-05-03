@@ -254,6 +254,7 @@ body {
   display: grid;
   grid-template-columns: 50% auto;
   gap: 12px;
+  padding: 10px 10%;
 }
 .skills .frameworks h2,
 .skills .languages h2 {
