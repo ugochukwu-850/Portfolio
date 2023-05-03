@@ -20,7 +20,7 @@ body {
             $bg-color 100%,
             #04042b 0%);
     width: auto;
-    max-width: auto;
+    max-width: 100%;
     overflow-x: hidden;
 }
 
@@ -189,7 +189,7 @@ body {
 
 .about {
     background: #0f0f0ff0;
-    opacity: .8;
+    opacity: 1;
     display: grid;
     grid-template-columns: 49% auto;
     gap: 12%;
@@ -254,12 +254,27 @@ body {
             width: max-content;
             margin-top: 5%;
             text-decoration: none;
-            font-weight: 800;
-            font-size: 1.2rem;
             border-radius: 8px;
-            animation-name: cta;
-            animation-duration: 2s;
-            animation-iteration-count: 2s;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            flex-shrink: 1;
+
+
+            span {
+                &:nth-child(1) {
+                    color: green;
+                    overflow: hidden;
+                    margin: auto;
+                    padding: 2px 4px 1px;
+                }
+
+                &:nth-child(2) {
+                    font-size: 1.2rem;
+                    font-weight: 800;
+                    margin: auto 4px;
+                }
+            }
 
             &:hover {
                 opacity: .7;
@@ -299,7 +314,7 @@ body {
         border-radius: 6px;
         max-width: 300px;
 
-        &:hover{
+        &:hover {
             animation-name: cards;
             animation-duration: 1s;
             animation-iteration-count: 1;
@@ -366,11 +381,13 @@ body {
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
+            flex-shrink: 1;
             margin: 12px;
             align-content: flex-start;
 
             h4 {
                 margin: auto 2px;
+                min-width: max-content;
             }
 
             img {
@@ -378,6 +395,7 @@ body {
                 height: 35px;
                 border-radius: 50%;
                 margin-right: 12px;
+                min-width: 35px;
             }
 
             span {
@@ -388,6 +406,83 @@ body {
         }
     }
 
+}
+
+.projects {
+    color: white;
+
+    .starkco {
+        display: grid;
+        grid-template-columns: max-content auto;
+
+
+        .graphics {
+
+            overflow: hidden;
+            max-width: 300px;
+            max-height: 100%;
+            border-radius: 12px;
+            margin: 12px 14px;
+            display: flex;
+            flex-direction: column;
+
+
+            &:hover{
+                img{
+                    transform: scale(1.1);
+                    transition: all 1s;
+                }
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                //object-position: center center;
+                border-radius: 24px;
+                border: 1px transparent silver;
+            }
+        }
+
+        .description {
+            height: max-content;
+            display: flex;
+            flex-direction: column;
+
+            h2{
+                color: green;
+                span{
+                    color: #cedbf7;
+                    font-size: large;
+                }
+            }
+            h4{
+                color: red;
+                font-size: small;
+                
+                margin-top: -2px;
+            }
+            span{
+                font-style: italic;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin-bottom: 8px;
+                padding: 4px;
+            }
+
+            a{
+                text-decoration: none;
+                color: white;
+                padding: 10px 12px;
+                margin: 12px 0;
+                background-color: rgb(10, 4, 10);
+                width: max-content;
+                border-radius: 3px;
+                //border-color: #cbcbff;
+                border: .5px solid rgb(131, 160, 118);
+                
+            }
+        }
+    }
 }
 
 footer {
@@ -407,6 +502,8 @@ footer {
 
         span {
             display: block;
+            width: 100%;
+            word-wrap: break-word;
             margin-top: 12px;
         }
 
@@ -437,9 +534,17 @@ footer {
         flex-direction: column;
         flex-wrap: nowrap;
 
-        span {
-            display: block;
-            margin: 12px;
+
+        a {
+            text-decoration: none;
+            color: #cedbf7;
+            height: max-content;
+            min-height: max-content;
+
+            span {
+                display: block;
+                margin: 12px;
+            }
         }
     }
 
@@ -574,13 +679,13 @@ footer {
 
 
 @media screen and (max-width:700px) {
-    body{
+    body {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
         overflow-x: hidden;
 
-        *{
+        * {
             overflow-x: hidden;
         }
 
@@ -588,14 +693,21 @@ footer {
 
     .hero {
         img {
-            top: 20%;
+            top: 10%;
             left: 25%;
 
             border-radius: 10%;
         }
 
         .nav-bar {
+            display: flex;
+            flex-direction: row;
+            place-content: space-between;
+            padding: 2px;
+
             .nav-links {
+
+                //display: none;
                 a {
                     display: none;
                 }
@@ -616,9 +728,17 @@ footer {
     }
 
     .about {
-        display: grid;
-        grid-template-columns: 100%;
+        display: flex;
+        flex-direction: column;
         gap: 12%;
+
+
+        .desc {
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
+        }
+
     }
 
     .services {
@@ -642,6 +762,33 @@ footer {
         .languages {
             h2 {
                 text-align: center;
+            }
+        }
+
+    }
+
+    footer {
+        padding: 1rem .5rem;
+
+        .certification {
+            height: max-content;
+
+            a {
+                text-decoration: none;
+                color: #cedbf7;
+                display: block;
+
+
+                span {
+                    margin: 12px;
+                    display: block;
+                }
+            }
+
+            .license {
+                color: burlywood;
+                display: block;
+                width: 100%;
             }
         }
     }

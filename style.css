@@ -11,7 +11,7 @@ body {
   background-color: #0e0e23;
   background: linear-gradient(circle, #070727 100%, #04042b 0%);
   width: auto;
-  max-width: auto;
+  max-width: 100%;
   overflow-x: hidden;
 }
 
@@ -152,7 +152,7 @@ body {
 
 .about {
   background: rgba(15, 15, 15, 0.9411764706);
-  opacity: 0.8;
+  opacity: 1;
   display: grid;
   grid-template-columns: 49% auto;
   gap: 12%;
@@ -213,12 +213,22 @@ body {
   width: max-content;
   margin-top: 5%;
   text-decoration: none;
-  font-weight: 800;
-  font-size: 1.2rem;
   border-radius: 8px;
-  animation-name: cta;
-  animation-duration: 2s;
-  animation-iteration-count: 2s;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-shrink: 1;
+}
+.about .desc a span:nth-child(1) {
+  color: green;
+  overflow: hidden;
+  margin: auto;
+  padding: 2px 4px 1px;
+}
+.about .desc a span:nth-child(2) {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: auto 4px;
 }
 .about .desc a:hover {
   opacity: 0.7;
@@ -312,12 +322,15 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  flex-shrink: 1;
   margin: 12px;
   align-content: flex-start;
 }
 .skills .frameworks div h4,
 .skills .languages div h4 {
   margin: auto 2px;
+  min-width: -moz-max-content;
+  min-width: max-content;
 }
 .skills .frameworks div img,
 .skills .languages div img {
@@ -325,12 +338,77 @@ body {
   height: 35px;
   border-radius: 50%;
   margin-right: 12px;
+  min-width: 35px;
 }
 .skills .frameworks div span,
 .skills .languages div span {
   text-align: center;
   margin: auto 2px;
   color: rgba(209, 133, 13, 0.8);
+}
+
+.projects {
+  color: white;
+}
+.projects .starkco {
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+.projects .starkco .graphics {
+  overflow: hidden;
+  max-width: 300px;
+  max-height: 100%;
+  border-radius: 12px;
+  margin: 12px 14px;
+  display: flex;
+  flex-direction: column;
+}
+.projects .starkco .graphics:hover img {
+  transform: scale(1.1);
+  transition: all 1s;
+}
+.projects .starkco .graphics img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 24px;
+  border: 1px transparent silver;
+}
+.projects .starkco .description {
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+}
+.projects .starkco .description h2 {
+  color: green;
+}
+.projects .starkco .description h2 span {
+  color: #cedbf7;
+  font-size: large;
+}
+.projects .starkco .description h4 {
+  color: red;
+  font-size: small;
+  margin-top: -2px;
+}
+.projects .starkco .description span {
+  font-style: italic;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 8px;
+  padding: 4px;
+}
+.projects .starkco .description a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 12px;
+  margin: 12px 0;
+  background-color: rgb(10, 4, 10);
+  width: -moz-max-content;
+  width: max-content;
+  border-radius: 3px;
+  border: 0.5px solid rgb(131, 160, 118);
 }
 
 footer {
@@ -351,6 +429,8 @@ footer .socials {
 }
 footer .socials span {
   display: block;
+  width: 100%;
+  word-wrap: break-word;
   margin-top: 12px;
 }
 footer .socials h4 {
@@ -374,7 +454,15 @@ footer .certification {
   flex-direction: column;
   flex-wrap: nowrap;
 }
-footer .certification span {
+footer .certification a {
+  text-decoration: none;
+  color: #cedbf7;
+  height: -moz-max-content;
+  height: max-content;
+  min-height: -moz-max-content;
+  min-height: max-content;
+}
+footer .certification a span {
   display: block;
   margin: 12px;
 }
@@ -484,9 +572,15 @@ footer .license {
     overflow-x: hidden;
   }
   .hero img {
-    top: 20%;
+    top: 10%;
     left: 25%;
     border-radius: 10%;
+  }
+  .hero .nav-bar {
+    display: flex;
+    flex-direction: row;
+    place-content: space-between;
+    padding: 2px;
   }
   .hero .nav-bar .nav-links a {
     display: none;
@@ -502,9 +596,14 @@ footer .license {
     padding-left: 12%;
   }
   .about {
-    display: grid;
-    grid-template-columns: 100%;
+    display: flex;
+    flex-direction: column;
     gap: 12%;
+  }
+  .about .desc {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
   }
   .services {
     padding: 1rem;
@@ -523,5 +622,26 @@ footer .license {
   .skills .frameworks h2,
   .skills .languages h2 {
     text-align: center;
+  }
+  footer {
+    padding: 1rem 0.5rem;
+  }
+  footer .certification {
+    height: -moz-max-content;
+    height: max-content;
+  }
+  footer .certification a {
+    text-decoration: none;
+    color: #cedbf7;
+    display: block;
+  }
+  footer .certification a span {
+    margin: 12px;
+    display: block;
+  }
+  footer .certification .license {
+    color: burlywood;
+    display: block;
+    width: 100%;
   }
 }/*# sourceMappingURL=style.css.map */
