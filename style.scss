@@ -19,6 +19,9 @@ body {
     background: linear-gradient(circle,
             $bg-color 100%,
             #04042b 0%);
+    width: auto;
+    max-width: auto;
+    overflow-x: hidden;
 }
 
 
@@ -571,6 +574,17 @@ footer {
 
 
 @media screen and (max-width:700px) {
+    body{
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+
+        *{
+            overflow-x: hidden;
+        }
+
+    }
 
     .hero {
         img {

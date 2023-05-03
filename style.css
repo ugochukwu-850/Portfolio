@@ -10,6 +10,9 @@ body {
   margin: 0;
   background-color: #0e0e23;
   background: linear-gradient(circle, #070727 100%, #04042b 0%);
+  width: auto;
+  max-width: auto;
+  overflow-x: hidden;
 }
 
 .hero {
@@ -471,6 +474,15 @@ footer .license {
   }
 }
 @media screen and (max-width: 700px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  body * {
+    overflow-x: hidden;
+  }
   .hero img {
     top: 20%;
     left: 25%;
