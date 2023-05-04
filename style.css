@@ -288,7 +288,7 @@ body {
   margin: 4px auto;
 }
 .services div span {
-  max-height: 120px;
+  max-height: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
