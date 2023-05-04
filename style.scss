@@ -2,8 +2,7 @@ $bg-color: #070727;
 $body-color: hwb(238 2% 86%);
 $header-bg: #0e0e23;
 
-
-
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Courgette&family=League+Spartan:wght@300&family=Lobster+Two:ital@1&family=Oleo+Script:wght@400;700&family=Poltawski+Nowy&family=Texturina:opsz,wght@12..72,300&display=swap');
 
 html {
     padding: 0;
@@ -124,11 +123,11 @@ body {
         background-color: #00000e57;
 
         h1 {
-            font-size: 2rem;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 2.5rem;
+            font-family: 'Courgette', cursive;
             padding-bottom: 2px;
             margin-bottom: 2px;
-            color: rgb(148, 147, 225);
+            color: rgb(204, 204, 219);
             animation-name: float-in-top;
             animation-duration: 2s;
             animation-timing-function: ease-in-out;
@@ -138,6 +137,7 @@ body {
 
         h3 {
             font-size: 1.2rem;
+            font-family: 'League Spartan', sans-serif;
             color: rgb(199, 8, 8);
             opacity: .8;
             animation-name: float-in-left;
@@ -149,7 +149,7 @@ body {
             width: 90%;
             font-size: medium;
             text-align: start;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: 'Texturina', serif;
             animation-name: float-in-low;
             animation-duration: 2s;
             animation-iteration-count: 1;
@@ -241,6 +241,8 @@ body {
         h4 {
             color: rgb(205, 12, 12);
             border-radius: 12px;
+            font-family: 'Texturina', serif;
+
             animation-name: float-in-low;
             animation-duration: 2s;
             animation-iteration-count: 1;
@@ -427,8 +429,8 @@ body {
             flex-direction: column;
 
 
-            &:hover{
-                img{
+            &:hover {
+                img {
                     transform: scale(1.1);
                     transition: all 1s;
                 }
@@ -449,27 +451,30 @@ body {
             display: flex;
             flex-direction: column;
 
-            h2{
+            h2 {
                 color: green;
-                span{
+
+                span {
                     color: #cedbf7;
                     font-size: large;
                 }
             }
-            h4{
+
+            h4 {
                 color: red;
                 font-size: small;
-                
+
                 margin-top: -2px;
             }
-            span{
+
+            span {
                 font-style: italic;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 margin-bottom: 8px;
                 padding: 4px;
             }
 
-            a{
+            a {
                 text-decoration: none;
                 color: white;
                 padding: 10px 12px;
@@ -479,7 +484,7 @@ body {
                 border-radius: 3px;
                 //border-color: #cbcbff;
                 border: .5px solid rgb(131, 160, 118);
-                
+
             }
         }
     }
