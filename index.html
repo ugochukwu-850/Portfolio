@@ -31,13 +31,8 @@
         <div class="description">
             <h1 data-aos="slide-right" data-aos-duration="5000">Hi, I'm Ugochukwu Chizaram</h1>
             <h3 data-aos="slide-down" data-aos-duration="5000">Full Stack Web and Python Developer</h3>
-            <span data-aos="slide-left" data-aos-duration="5000">I am highly motivated and thrive in challenging
-                environments. My excellent communication and
-                interpersonal skills enable me to work collaboratively with others and make a valuable contribution to
-                your organization.
-                If you are looking for a web developer who is passionate about creating innovative solutions and has
-                strong technical and soft skills, I am the right candidate for you.
-                .</span>
+            <span data-aos="slide-left" data-aos-duration="5000">
+            </span>
             <div class="cta">
                 <a data-aos="slide-down" data-aos-duration="5000" href="#contact">Hire me</a>
             </div>
@@ -195,6 +190,24 @@
     </script>
 </body>
 <script>
+const description = `
+I am highly motivated and thrive in challenging
+                environments. My excellent communication and
+                interpersonal skills enable me to work collaboratively with others and make a valuable contribution to
+                your organization.
+                If you are looking for a web developer who is passionate about creating innovative solutions and has
+                strong technical and soft skills, I am the right candidate for you.
+`
+const span = document.querySelector(".hero .description span");
+let index = 0;
+
+setInterval(()=>{
+    if (index < description.length){
+        span.innerHTML = `${span.innerHTML}${description[index]}`;
+        index += 1;
+    }
+}, 20)
+
 
 </script>
 
