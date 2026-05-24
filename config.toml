@@ -1,0 +1,18 @@
+base_url = "https://example.com"
+title = "Chizaram Ugochukwu"
+description = "Software Engineer & Rust Developer based in Port Harcourt, Nigeria."
+default_language = "en"
+compile_sass = false
+generate_feeds = false
+
+[markdown]
+highlight_code = true
+highlight_theme = "base16-ocean-dark"
+smart_punctuation = true
+
+[extra]
+author = "Chizaram Ugochukwu"
+email = "ugochukwuchizaram850@gmail.com"
+github = "https://github.com/ugochukwu-850"
+linkedin = "https://www.linkedin.com/in/ugochukwuchizaram"
+mastering_backend = "https://blog.masteringbackend.com/authors/chizaram"

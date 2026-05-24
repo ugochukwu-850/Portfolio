@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="mt-6 mb-14">
+  <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-1">Chizaram Ugochukwu</h1>
+  <p class="text-sm text-gray-400 dark:text-gray-500 mb-6">Software Engineer · Rust Developer · Port Harcourt, Nigeria</p>
+
+  <p class="text-[15px] text-gray-600 dark:text-gray-300 leading-7 mb-3">
+    I build backend systems and tools in Rust — async pipelines, REST APIs, and systems-level programs.
+    Currently shipping production Rust at <a href="https://searchless.ai" target="_blank" rel="noopener noreferrer" class="text-orange-600 dark:text-orange-400 hover:underline underline-offset-2">Searchless</a>,
+    where I own features from database to UI.
+  </p>
+  <p class="text-[15px] text-gray-600 dark:text-gray-300 leading-7 mb-8">
+    I also write. 30+ technical articles on Rust published at
+    <a href="{{ config.extra.mastering_backend }}" target="_blank" rel="noopener noreferrer" class="text-orange-600 dark:text-orange-400 hover:underline underline-offset-2">Mastering Backend</a>,
+    covering everything from null safety and type systems to closures and the halting problem.
+  </p>
+
+  <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+    <a href="{{ config.extra.github }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">GitHub</a>
+    <span class="text-gray-200 dark:text-gray-700">·</span>
+    <a href="{{ config.extra.linkedin }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">LinkedIn</a>
+    <span class="text-gray-200 dark:text-gray-700">·</span>
+    <a href="{{ config.extra.mastering_backend }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Mastering Backend</a>
+    <span class="text-gray-200 dark:text-gray-700">·</span>
+    <a href="mailto:{{ config.extra.email }}" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Email</a>
+  </div>
+</section>
+
+<hr class="border-gray-100 dark:border-gray-800 mb-12" />
+
+<!-- Experience -->
+<section class="mb-14">
+  <h2 class="text-xs font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-7">Experience</h2>
+
+  <div class="space-y-9">
+
+    <div>
+      <div class="flex items-baseline justify-between mb-0.5">
+        <span class="font-medium text-gray-900 dark:text-gray-100 text-sm">Searchless</span>
+        <span class="text-xs text-gray-400 dark:text-gray-500 font-mono">Apr 2025 – Present</span>
+      </div>
+      <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Software Engineer</p>
+      <p class="text-[14px] text-gray-600 dark:text-gray-300 leading-6">
+        Building production backend services in Rust with axum and tokio. Shipped a multi-stage AI analysis pipeline
+        integrating Gemini with search grounding and deterministic scoring. Implemented a streaming WebM demuxer in Rust
+        for real-time Opus→PCM decoding, achieving sub-second time-to-first-audio in production voice pipelines.
+      </p>
+    </div>
+
+    <div>
+      <div class="flex items-baseline justify-between mb-0.5">
+        <span class="font-medium text-gray-900 dark:text-gray-100 text-sm">Ayomide Foundation</span>
+        <span class="text-xs text-gray-400 dark:text-gray-500 font-mono">Jul – Dec 2023</span>
+      </div>
+      <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Software Engineer Intern</p>
+      <p class="text-[14px] text-gray-600 dark:text-gray-300 leading-6">
+        Built an AI calendar integrating four applications via PostgreSQL and OAuth 2.0.
+        Authored a custom decision-tree algorithm in Rust for dynamic schedule generation from user inputs.
+      </p>
+    </div>
+
+    <div>
+      <div class="flex items-baseline justify-between mb-0.5">
+        <span class="font-medium text-gray-900 dark:text-gray-100 text-sm">Index UI</span>
+        <span class="text-xs text-gray-400 dark:text-gray-500 font-mono">Nov – Dec 2023</span>
+      </div>
+      <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Full Stack Engineer · Freelance</p>
+      <p class="text-[14px] text-gray-600 dark:text-gray-300 leading-6">
+        Engineered core search functionality in Rust using async and multi-threaded programming,
+        parsing ~1 GB of data in under 5 seconds. Built and deployed the full-stack web application on Render.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Projects -->
+<section class="mb-14">
+  <h2 class="text-xs font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-7">Projects</h2>
+
+  <div class="space-y-7">
+
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="font-medium text-gray-900 dark:text-gray-100 text-sm">Jomify</span>
+        <span class="text-xs font-mono text-gray-400 dark:text-gray-500">Rust · Tauri · React</span>
+      </div>
+      <p class="text-[14px] text-gray-600 dark:text-gray-300 leading-6">
+        Cross-platform offline music player with Spotify and YouTube integration.
+        Multi-threaded async audio playback via Rodio across Windows, macOS, and Linux.
+      </p>
+    </div>
+
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="font-medium text-gray-900 dark:text-gray-100 text-sm">Inspector</span>
+        <span class="text-xs font-mono text-gray-400 dark:text-gray-500">Rust · CLI</span>
+      </div>
+      <p class="text-[14px] text-gray-600 dark:text-gray-300 leading-6">
+        Standalone Rust CLI for validating multi-stage backend pipelines,
+        with multi-sheet Excel report generation via rust_xlsxwriter.
+      </p>
+    </div>
+
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="font-medium text-gray-900 dark:text-gray-100 text-sm">Falcon</span>
+        <span class="text-xs font-mono text-gray-400 dark:text-gray-500">Python · OpenAI · Auth0</span>
+      </div>
+      <p class="text-[14px] text-gray-600 dark:text-gray-300 leading-6">
+        AI-powered CBT exam generator integrating OpenAI GPT-3.5, vector-database-backed media management,
+        and OAuth-based authentication.
+      </p>
+    </div>
+
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <a href="https://github.com/RustAudio/rodio" target="_blank" rel="noopener noreferrer" class="font-medium text-gray-900 dark:text-gray-100 text-sm hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
+          Rodio ↗
+        </a>
+        <span class="text-xs font-mono text-gray-400 dark:text-gray-500">Open Source · Rust</span>
+      </div>
+      <p class="text-[14px] text-gray-600 dark:text-gray-300 leading-6">
+        Contributor to the popular Rust audio playback library —
+        bug fixes, accessibility improvements, documentation, and community issue triage.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Writing -->
+{% set articles_section = get_section(path="articles/_index.md") %}
+{% if articles_section.pages %}
+<section class="mb-14">
+  <h2 class="text-xs font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-7">Writing</h2>
+
+  <div class="space-y-px">
+    {% for page in articles_section.pages | slice(end=5) %}
+    <a href="{{ page.permalink }}" class="group flex items-baseline justify-between -mx-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900/60 transition-colors">
+      <span class="text-[14px] text-gray-700 dark:text-gray-200 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors leading-snug">{{ page.title }}</span>
+      <span class="text-xs text-gray-400 dark:text-gray-500 ml-6 shrink-0 font-mono">{{ page.date | date(format="%b %Y") }}</span>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="mt-4">
+    <a href="/articles/" class="text-sm text-orange-600 dark:text-orange-400 hover:underline underline-offset-2">All articles →</a>
+  </div>
+</section>
+{% endif %}
+
+<!-- Skills -->
+<section class="mb-14">
+  <h2 class="text-xs font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-7">Skills</h2>
+
+  <div class="space-y-3">
+    <div class="flex text-[14px]">
+      <span class="text-gray-400 dark:text-gray-500 w-32 shrink-0">Languages</span>
+      <span class="text-gray-600 dark:text-gray-300">Rust, Python, TypeScript, JavaScript, C</span>
+    </div>
+    <div class="flex text-[14px]">
+      <span class="text-gray-400 dark:text-gray-500 w-32 shrink-0">Rust</span>
+      <span class="text-gray-600 dark:text-gray-300">tokio, axum, serde, hyper, Tauri, Rodio, utoipa</span>
+    </div>
+    <div class="flex text-[14px]">
+      <span class="text-gray-400 dark:text-gray-500 w-32 shrink-0">Backend</span>
+      <span class="text-gray-600 dark:text-gray-300">REST APIs, OpenAPI/Swagger, OAuth 2.0, FastAPI, Django, Flask</span>
+    </div>
+    <div class="flex text-[14px]">
+      <span class="text-gray-400 dark:text-gray-500 w-32 shrink-0">Databases</span>
+      <span class="text-gray-600 dark:text-gray-300">PostgreSQL, MongoDB, Neo4j (Cypher), Supabase, SQLite</span>
+    </div>
+    <div class="flex text-[14px]">
+      <span class="text-gray-400 dark:text-gray-500 w-32 shrink-0">Frontend</span>
+      <span class="text-gray-600 dark:text-gray-300">React, SvelteKit, TailwindCSS, SCSS</span>
+    </div>
+    <div class="flex text-[14px]">
+      <span class="text-gray-400 dark:text-gray-500 w-32 shrink-0">Infrastructure</span>
+      <span class="text-gray-600 dark:text-gray-300">Linux, Git, GitHub Actions, CI/CD, Render</span>
+    </div>
+    <div class="flex text-[14px]">
+      <span class="text-gray-400 dark:text-gray-500 w-32 shrink-0">AI / ML</span>
+      <span class="text-gray-600 dark:text-gray-300">Gemini API, OpenAI GPT, LLM integration, prompt engineering</span>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

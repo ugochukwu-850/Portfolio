@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Writing · Chizaram Ugochukwu{% endblock %}
+{% block description %}Technical articles on Rust, backend engineering, and computer science by Chizaram Ugochukwu.{% endblock %}
+
+{% block content %}
+<section class="mt-6">
+
+  <div class="mb-12">
+    <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Writing</h1>
+    <p class="text-[15px] text-gray-500 dark:text-gray-400 leading-7">
+      Notes on Rust, backend systems, and computer science.
+      I also publish at
+      <a href="{{ config.extra.mastering_backend }}" target="_blank" rel="noopener noreferrer" class="text-orange-600 dark:text-orange-400 hover:underline underline-offset-2">Mastering Backend</a>
+      where I've written 30+ articles.
+    </p>
+  </div>
+
+  {% if section.pages %}
+  <div class="space-y-px">
+    {% for page in section.pages %}
+    <a href="{{ page.permalink }}" class="group flex items-baseline justify-between -mx-3 px-3 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900/60 transition-colors">
+      <span class="text-[14px] text-gray-700 dark:text-gray-200 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors leading-snug">{{ page.title }}</span>
+      <span class="text-xs text-gray-400 dark:text-gray-500 ml-6 shrink-0 font-mono">{{ page.date | date(format="%b %d, %Y") }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-[14px] text-gray-400 dark:text-gray-500">No articles yet. Check back soon.</p>
+  {% endif %}
+
+</section>
+{% endblock %}
