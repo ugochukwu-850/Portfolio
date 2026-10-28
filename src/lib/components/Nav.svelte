@@ -4,6 +4,7 @@
 	import { afterNavigate } from '$app/navigation';
 	import { nav, site, socials } from '#lib/data/site.ts';
 	import Logo from './Logo.svelte';
+	import { pauseSmoothScroll } from '#lib/smooth-scroll.ts';
 
 	let open = $state(false);
 	let hidden = $state(false);
@@ -38,6 +39,7 @@
 
 	$effect(() => {
 		document.documentElement.style.overflow = open ? 'hidden' : '';
+		pauseSmoothScroll(open);
 	});
 
 	const isActive = (href: string) =>
@@ -82,7 +84,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 <div class="scrim" class:open onclick={() => setOpen(false)}></div>
 
-<aside id="menu" class="drawer" class:open aria-label="Menu" inert={!open}>
+<aside id="menu" class="drawer" class:open aria-label="Menu" inert={!open} data-lenis-prevent>
 	<nav aria-label="Menu">
 		<ul role="list">
 			<li style="--i: 0"><a href="/" bind:this={firstLink}>Home</a></li>

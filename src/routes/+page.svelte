@@ -6,12 +6,18 @@
 	import Starfield from '#lib/visuals/Starfield.svelte';
 	import Horizon from '#lib/visuals/Horizon.svelte';
 	import Waveform from '#lib/visuals/Waveform.svelte';
-	import Orbits from '#lib/visuals/Orbits.svelte';
+	import Equalizer from '#lib/visuals/Equalizer.svelte';
+	import ShootingStars from '#lib/visuals/ShootingStars.svelte';
+	import { parallax } from '#lib/actions/parallax.ts';
+	import ShotStage from '#lib/components/ShotStage.svelte';
+	import { showcases } from '#lib/data/projects.ts';
 	import Network from '#lib/visuals/Network.svelte';
 	import { site, socials, stats } from '#lib/data/site.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	const [ams, jomify] = showcases;
 
 	const person = {
 		'@context': 'https://schema.org',
@@ -33,13 +39,16 @@
 	{@html jsonLd}
 </svelte:head>
 
-<section class="hero">
+<section class="hero" use:parallax>
 	<div class="hero__bg" aria-hidden="true">
-		<Starfield count={240} seed={11} />
-		<Horizon />
+		<div class="layer layer--stars">
+			<Starfield count={240} seed={11} />
+			<ShootingStars />
+		</div>
+		<div class="layer layer--planet"><Horizon /></div>
 	</div>
 
-	<div class="container hero__inner">
+	<div class="container hero__inner" data-hero-out>
 		<p class="label intro">{site.name} — {site.location}</p>
 		<h1 class="display intro" style="--d: 100ms">Engineering real-time systems in Rust</h1>
 		<p class="lead intro" style="--d: 200ms">
@@ -82,6 +91,20 @@
 </MissionPanel>
 
 <MissionPanel
+	label="Live product · Lead FDE, frontend"
+	title="The production ecosystem for Africa"
+	text="ArtMostSphere puts a shoot’s locations, gear, cast and planning in one place, starting in Nigeria. I lead its Next.js and TypeScript frontend as FDE — from marketplace search to the Production Planner."
+	actions={[
+		{ label: 'View project', href: '/projects#artmostsphere' },
+		{ label: 'Visit site', href: 'https://artmostsphere.vercel.app', external: true }
+	]}
+>
+	{#snippet visual()}
+		<ShotStage shot={ams.shots[0]} size={ams.shotSize} accent={ams.accent} />
+	{/snippet}
+</MissionPanel>
+
+<MissionPanel
 	label="Flagship project"
 	title="Your music, offline, everywhere"
 	text="Jomify is a cross-platform music player in Rust and Tauri, with Spotify and YouTube integration and multi-threaded playback on Rodio — the audio library I contribute to."
@@ -89,8 +112,13 @@
 		{ label: 'View project', href: '/projects#jomify' },
 		{ label: 'Source', href: 'https://github.com/ugochukwu-850/Jomify', external: true }
 	]}
+	align="right"
 >
-	{#snippet visual()}<Orbits />{/snippet}
+	{#snippet visual()}
+		<ShotStage shot={jomify.shots[0]} size={jomify.shotSize} accent={jomify.accent} tilt="right">
+			<div class="stage-eq"><Equalizer seed={31} bars={84} /></div>
+		</ShotStage>
+	{/snippet}
 </MissionPanel>
 
 <section class="section log">
@@ -112,7 +140,7 @@
 	</div>
 </section>
 
-<section id="contact" class="contact">
+<section id="contact" class="contact" data-rule>
 	<div class="contact__bg" aria-hidden="true">
 		<Starfield count={120} seed={3} />
 	</div>
@@ -155,6 +183,28 @@
 		position: absolute;
 		inset: 0;
 		z-index: -1;
+	}
+
+	/* Layers drift a few pixels against the pointer; the oversize hides their edges. */
+	.layer {
+		position: absolute;
+		inset: -24px;
+		will-change: translate;
+	}
+
+	.layer--stars {
+		translate: calc(var(--px, 0) * -7px) calc(var(--py, 0) * -5px);
+		animation: star-drift 120s linear infinite alternate;
+	}
+
+	.layer--planet {
+		translate: calc(var(--px, 0) * -16px) calc(var(--py, 0) * -9px);
+	}
+
+	@keyframes star-drift {
+		to {
+			transform: translate3d(-18px, 10px, 0);
+		}
 	}
 
 	.hero__bg::after {
@@ -288,6 +338,12 @@
 	.contact__mail {
 		color: var(--fg-3);
 		font-size: 13px;
+	}
+
+	.stage-eq {
+		position: absolute;
+		inset: 52% 0 0 0;
+		opacity: 0.55;
 	}
 
 	@media (max-width: 960px) {

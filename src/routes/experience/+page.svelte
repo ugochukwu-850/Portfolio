@@ -49,7 +49,7 @@
 	</div>
 
 	{#each roles as role, i (role.id)}
-		<article id={role.id} class="mission" class:compact={detail === 'overview'}>
+		<article id={role.id} class="mission" class:compact={detail === 'overview'} data-rule>
 			<header class="mission__meta" data-reveal>
 				<span class="mono mission__index">{pad(i + 1)} / {pad(roles.length)}</span>
 				<p class="label">{role.start} — {role.end}</p>
@@ -111,7 +111,7 @@
 </section>
 
 <section class="section container" aria-labelledby="cap-title">
-	<div class="split">
+	<div class="split" data-rule>
 		<div class="split__head">
 			<p class="label" data-reveal>Systems</p>
 			<h2 id="cap-title" class="title" data-reveal style="--d: 80ms">Capabilities</h2>
@@ -128,7 +128,7 @@
 </section>
 
 <section class="section container credentials" aria-labelledby="cred-title">
-	<div class="split">
+	<div class="split" data-rule>
 		<div class="split__head">
 			<p class="label" data-reveal>Training</p>
 			<h2 id="cred-title" class="title" data-reveal style="--d: 80ms">Education & credentials</h2>

@@ -5,7 +5,8 @@
 
 <div class="horizon {variant}" aria-hidden="true">
 	<div class="planet"></div>
-	<div class="flare"></div>
+	<div class="halo"></div>
+	<div class="flare"><span></span></div>
 </div>
 
 <style>
@@ -30,6 +31,12 @@
 
 	.flare {
 		position: absolute;
+	}
+
+	.flare span {
+		display: block;
+		width: 100%;
+		height: 100%;
 		border-radius: 50%;
 		background: radial-gradient(
 			closest-side,
@@ -39,6 +46,45 @@
 		);
 		filter: blur(6px);
 		mix-blend-mode: screen;
+		animation: flare-drift 14s ease-in-out infinite alternate;
+	}
+
+	/* Soft atmospheric glow that slowly breathes along the rim. */
+	.halo {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(
+			ellipse 70% 40% at 55% 72%,
+			rgb(var(--glow) / 0.16),
+			transparent 70%
+		);
+		animation: breathe 9s ease-in-out infinite;
+	}
+
+	.eclipse .halo {
+		background: radial-gradient(
+			ellipse 45% 55% at 82% 20%,
+			rgb(var(--glow) / 0.14),
+			transparent 70%
+		);
+	}
+
+	@keyframes breathe {
+		50% {
+			opacity: 0.35;
+			transform: scale(1.04);
+		}
+	}
+
+	@keyframes flare-drift {
+		from {
+			transform: translateX(-14%) scaleX(0.92);
+			opacity: 0.7;
+		}
+		to {
+			transform: translateX(14%) scaleX(1.08);
+			opacity: 1;
+		}
 	}
 
 	/* Limb: the curve of a planet along the bottom of the frame */

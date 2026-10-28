@@ -12,8 +12,9 @@
 				y: fixed(r() * 1000),
 				r: size > 0.97 ? 1.5 : size > 0.85 ? 1.05 : fixed(0.5 + r() * 0.35, 2),
 				o: fixed(0.2 + r() * 0.7, 2),
-				twinkle: r() < 0.14,
-				delay: fixed(r() * 6, 2)
+				twinkle: r() < 0.3,
+				delay: fixed(r() * 8, 2),
+				dur: fixed(3.5 + r() * 5, 2)
 			};
 		});
 	});
@@ -28,6 +29,7 @@
 			opacity={s.o}
 			class:twinkle={s.twinkle}
 			style:animation-delay={s.twinkle ? `${s.delay}s` : undefined}
+			style:animation-duration={s.twinkle ? `${s.dur}s` : undefined}
 		/>
 	{/each}
 </svg>
@@ -48,7 +50,7 @@
 
 	@keyframes twinkle {
 		50% {
-			opacity: 0.08;
+			opacity: 0.1;
 		}
 	}
 </style>

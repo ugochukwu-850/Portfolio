@@ -3,9 +3,16 @@
 	import { fade } from 'svelte/transition';
 	import Seo from '#lib/components/Seo.svelte';
 	import PageHero from '#lib/components/PageHero.svelte';
-	import Orbits from '#lib/visuals/Orbits.svelte';
-	import Waveform from '#lib/visuals/Waveform.svelte';
-	import { categories, featured, openSource, projects, type Category } from '#lib/data/projects.ts';
+	import Network from '#lib/visuals/Network.svelte';
+	import Equalizer from '#lib/visuals/Equalizer.svelte';
+	import ShotGallery from '#lib/components/ShotGallery.svelte';
+	import {
+		categories,
+		openSource,
+		projects,
+		showcases,
+		type Category
+	} from '#lib/data/projects.ts';
 	import { pad } from '#lib/format.ts';
 
 	let filter = $state<Category | 'All'>('All');
@@ -17,53 +24,63 @@
 
 <Seo
 	title="Projects — Chizaram Ugochukwu"
-	description="Desktop apps, AI tools and systems software by Chizaram Ugochukwu: Jomify, DocConvo, Inspector, Etagère and more — mostly Rust."
+	description="Products, desktop apps, AI tools and systems software by Chizaram Ugochukwu: ArtMostSphere, Jomify, DocConvo, Inspector and more."
 	path="/projects"
 />
 
 <PageHero
 	label="Built & shipped"
 	title="Projects"
-	lead="Desktop apps, AI tools and systems software — mostly Rust, always shipped."
+	lead="Live products, desktop apps, AI tools and systems software — always shipped."
 	seed={14}
 >
-	{#snippet visual()}<div class="hero-orbits"><Orbits /></div>{/snippet}
+	{#snippet visual()}<div class="hero-network"><Network seed={44} nodes={30} /></div>{/snippet}
 </PageHero>
 
-<section id={featured.id} class="featured">
-	<div class="featured__visual" aria-hidden="true"><Waveform seed={9} lines={9} /></div>
-	<div class="container featured__inner">
-		<div class="featured__copy">
-			<p class="label" data-reveal>Featured · Open source</p>
-			<h2 class="display" data-reveal style="--d: 80ms">{featured.name}</h2>
-			<p class="subtitle" data-reveal style="--d: 140ms">{featured.tagline}</p>
-			<p class="lead" data-reveal style="--d: 200ms">{featured.summary}</p>
-			<div class="btn-row" data-reveal style="--d: 260ms">
-				{#each featured.links as l, i (l.href)}
-					<a
-						class="btn"
-						class:btn--ghost={i > 0}
-						href={l.href}
-						target="_blank"
-						rel="noopener noreferrer">{l.label} <span class="arrow" aria-hidden="true">↗</span></a
-					>
-				{/each}
+{#each showcases as show (show.id)}
+	<section id={show.id} class="featured" style:--accent={show.accent} data-rule>
+		<div class="featured__glow" aria-hidden="true" data-drift></div>
+		{#if show.visual === 'equalizer'}
+			<div class="featured__visual" aria-hidden="true" data-drift>
+				<Equalizer bars={72} seed={9} />
 			</div>
-		</div>
-		<dl class="featured__metrics" data-reveal style="--d: 320ms">
-			{#each featured.metrics as m (m.label)}
-				<div>
-					<dt>{m.label}</dt>
-					<dd>{m.value}</dd>
+		{/if}
+		<div class="container featured__inner">
+			<div class="featured__copy">
+				<p class="label" data-reveal>{show.label}</p>
+				<h2 class="display" data-reveal style="--d: 80ms">{show.name}</h2>
+				<p class="subtitle" data-reveal style="--d: 140ms">{show.tagline}</p>
+				<p class="lead" data-reveal style="--d: 200ms">{show.summary}</p>
+				<div class="btn-row" data-reveal style="--d: 260ms">
+					{#each show.links as l, i (l.href)}
+						<a
+							class="btn"
+							class:btn--ghost={i > 0}
+							href={l.href}
+							target="_blank"
+							rel="noopener noreferrer">{l.label} <span class="arrow" aria-hidden="true">↗</span></a
+						>
+					{/each}
 				</div>
-			{/each}
-			<div class="featured__stack">
-				<dt>Stack</dt>
-				<dd>{featured.stack.join(' · ')}</dd>
 			</div>
-		</dl>
-	</div>
-</section>
+			<dl class="featured__metrics" data-reveal style="--d: 320ms">
+				{#each show.facts as m (m.label)}
+					<div>
+						<dt>{m.label}</dt>
+						<dd>{m.value}</dd>
+					</div>
+				{/each}
+				<div class="featured__stack">
+					<dt>Stack</dt>
+					<dd>{show.stack.join(' · ')}</dd>
+				</div>
+			</dl>
+		</div>
+		<div class="featured__gallery" data-reveal style="--d: 120ms">
+			<ShotGallery shots={show.shots} size={show.shotSize} label="{show.name} screenshots" />
+		</div>
+	</section>
+{/each}
 
 <section class="section container" aria-labelledby="all-title">
 	<header class="list__head">
@@ -108,7 +125,7 @@
 </section>
 
 <section class="section container oss" aria-labelledby="oss-title">
-	<div class="oss__grid">
+	<div class="oss__grid" data-rule>
 		<div class="oss__head">
 			<p class="label" data-reveal>Open source</p>
 			<h2 id="oss-title" class="title" data-reveal style="--d: 80ms">{openSource.project}</h2>
@@ -137,17 +154,20 @@
 </section>
 
 <style>
-	.hero-orbits {
+	.hero-network {
 		position: absolute;
-		inset: 0 -10% 0 35%;
-		opacity: 0.9;
+		inset: 0 0 0 32%;
+		opacity: 0.85;
+		mask-image: linear-gradient(to right, transparent, #000 40%);
+		-webkit-mask-image: linear-gradient(to right, transparent, #000 40%);
 	}
 
 	.featured {
 		position: relative;
 		display: grid;
-		align-items: center;
-		min-height: min(86svh, 860px);
+		grid-template-columns: minmax(0, 1fr);
+		align-content: center;
+		gap: clamp(56px, 7vw, 96px);
 		padding-block: clamp(96px, 12vw, 160px);
 		border-top: 1px solid var(--line);
 		overflow: hidden;
@@ -155,11 +175,25 @@
 		scroll-margin-top: 0;
 	}
 
+	/* Equalizer sits behind the copy, rising from the gallery line */
+	/* A soft wash of the project's own colour behind its section */
+	.featured__glow {
+		position: absolute;
+		inset: -10% -20% 30%;
+		z-index: -2;
+		background: radial-gradient(
+			ellipse 50% 45% at 70% 35%,
+			rgb(var(--accent) / 0.16),
+			transparent 70%
+		);
+		pointer-events: none;
+	}
+
 	.featured__visual {
 		position: absolute;
-		inset: 15% 0 15% 0;
+		inset: 8% 0 52% 0;
 		z-index: -1;
-		opacity: 0.55;
+		opacity: 0.3;
 	}
 
 	.featured__inner {
@@ -389,9 +423,9 @@
 			gap: 20px;
 		}
 
-		.hero-orbits {
-			inset: 0 -40% 20% 0;
-			opacity: 0.6;
+		.hero-network {
+			inset: 0;
+			opacity: 0.5;
 		}
 	}
 </style>

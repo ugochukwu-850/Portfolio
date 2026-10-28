@@ -24,7 +24,7 @@
 		<Starfield {seed} count={140} />
 		{@render visual?.()}
 	</div>
-	<div class="container hero__inner">
+	<div class="container hero__inner" data-hero-out>
 		<p class="label intro">{label}</p>
 		<h1 class="display intro" style="--d: 90ms">{title}</h1>
 		{#if lead}
