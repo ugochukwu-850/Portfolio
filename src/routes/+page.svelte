@@ -9,13 +9,15 @@
 	import Equalizer from '#lib/visuals/Equalizer.svelte';
 	import ShootingStars from '#lib/visuals/ShootingStars.svelte';
 	import { parallax } from '#lib/actions/parallax.ts';
-	import homeShot from '#lib/assets/jomify/home.webp';
-	import homeShotSm from '#lib/assets/jomify/home-sm.webp';
+	import ShotStage from '#lib/components/ShotStage.svelte';
+	import { showcases } from '#lib/data/projects.ts';
 	import Network from '#lib/visuals/Network.svelte';
 	import { site, socials, stats } from '#lib/data/site.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	const [ams, jomify] = showcases;
 
 	const person = {
 		'@context': 'https://schema.org',
@@ -89,6 +91,20 @@
 </MissionPanel>
 
 <MissionPanel
+	label="Live product · Lead FDE, frontend"
+	title="The production ecosystem for Africa"
+	text="ArtMostSphere puts a shoot’s locations, gear, cast and planning in one place, starting in Nigeria. I lead its Next.js and TypeScript frontend as FDE — from marketplace search to the Production Planner."
+	actions={[
+		{ label: 'View project', href: '/projects#artmostsphere' },
+		{ label: 'Visit site', href: 'https://artmostsphere.vercel.app', external: true }
+	]}
+>
+	{#snippet visual()}
+		<ShotStage shot={ams.shots[0]} size={ams.shotSize} accent={ams.accent} />
+	{/snippet}
+</MissionPanel>
+
+<MissionPanel
 	label="Flagship project"
 	title="Your music, offline, everywhere"
 	text="Jomify is a cross-platform music player in Rust and Tauri, with Spotify and YouTube integration and multi-threaded playback on Rodio — the audio library I contribute to."
@@ -96,21 +112,12 @@
 		{ label: 'View project', href: '/projects#jomify' },
 		{ label: 'Source', href: 'https://github.com/ugochukwu-850/Jomify', external: true }
 	]}
+	align="right"
 >
 	{#snippet visual()}
-		<div class="jomify">
-			<div class="jomify__eq"><Equalizer seed={31} bars={84} /></div>
-			<img
-				src={homeShot}
-				srcset="{homeShotSm} 800w, {homeShot} 1600w"
-				sizes="(max-width: 860px) 90vw, 52vw"
-				width="1600"
-				height="858"
-				alt="Jomify music player showing featured playlists and an album gallery"
-				loading="lazy"
-				decoding="async"
-			/>
-		</div>
+		<ShotStage shot={jomify.shots[0]} size={jomify.shotSize} accent={jomify.accent} tilt="right">
+			<div class="stage-eq"><Equalizer seed={31} bars={84} /></div>
+		</ShotStage>
 	{/snippet}
 </MissionPanel>
 
@@ -333,32 +340,10 @@
 		font-size: 13px;
 	}
 
-	.jomify {
-		position: absolute;
-		inset: 0;
-		display: grid;
-		place-items: center;
-		perspective: 1600px;
-	}
-
-	.jomify__eq {
+	.stage-eq {
 		position: absolute;
 		inset: 52% 0 0 0;
 		opacity: 0.55;
-	}
-
-	.jomify img {
-		position: relative;
-		width: min(86%, 840px);
-		height: auto;
-		border: 1px solid var(--line-2);
-		box-shadow: 0 40px 120px -30px rgb(var(--glow) / 0.35);
-		transform: rotateY(-14deg) rotateX(4deg) rotate(1deg);
-		transition: transform 1.2s var(--ease);
-	}
-
-	.jomify:hover img {
-		transform: rotateY(-6deg) rotateX(2deg) rotate(0.5deg);
 	}
 
 	@media (max-width: 960px) {
