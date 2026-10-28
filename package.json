@@ -1,13 +1,33 @@
 {
-  "name": "chizaram-portfolio",
-  "private": true,
-  "scripts": {
-    "css:build": "tailwindcss -i input.css -o static/style.css --minify",
-    "css:watch": "tailwindcss -i input.css -o static/style.css --watch",
-    "build": "npm run css:build && zola build",
-    "serve": "zola serve"
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.4.19"
-  }
+	"name": "chizaram-portfolio",
+	"private": true,
+	"version": "2.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-vercel": "^7.0.0",
+		"@sveltejs/kit": "^3.0.0",
+		"@sveltejs/vite-plugin-svelte": "^7.2.0",
+		"marked": "^18.1.2",
+		"prettier": "^3.8.3",
+		"prettier-plugin-svelte": "^4.1.0",
+		"shiki": "^4.5.0",
+		"svelte": "^5.57.1",
+		"svelte-check": "^4.6.0",
+		"typescript": "^6.0.3",
+		"vite": "^8.3.0"
+	},
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*"
+	}
 }

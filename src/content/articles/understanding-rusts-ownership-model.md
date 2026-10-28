@@ -1,12 +1,11 @@
-+++
-title = "Understanding Rust's Ownership Model"
-date = 2025-01-15
-description = "A practical walkthrough of how Rust's ownership, borrowing, and lifetimes work — and why they matter for writing safe, concurrent systems."
-+++
+---
+title: Understanding Rust's Ownership Model
+date: 2025-01-15
+description: A practical walkthrough of how Rust's ownership and borrowing work — and why they matter for writing safe, concurrent systems.
+topics: Memory, Fundamentals
+---
 
 Rust's ownership model is the language's defining feature. It lets you write safe, performant systems code without a garbage collector — and without the class of bugs that haunt C and C++ programs.
-
-This is a sample article to show how writing works on this site. Replace it with your own content.
 
 ## Ownership in 30 seconds
 
@@ -46,6 +45,7 @@ fn main() {
 ```
 
 The rules are simple:
+
 - You can have many immutable borrows (`&T`) at once, or
 - Exactly one mutable borrow (`&mut T`) — but not both.
 
