@@ -1,6 +1,9 @@
 <script lang="ts">
+	import 'lenis/dist/lenis.css';
 	import '../app.css';
+	import { onMount } from 'svelte';
 	import { afterNavigate, onNavigate } from '$app/navigation';
+	import { startSmoothScroll } from '#lib/smooth-scroll.ts';
 	import Nav from '#lib/components/Nav.svelte';
 	import Footer from '#lib/components/Footer.svelte';
 	import fontRegular from '#lib/assets/fonts/D-DIN-PRO-400-Regular.woff2';
@@ -8,12 +11,25 @@
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
+	let main: HTMLElement;
 
-	// Cross-fade between pages with the View Transitions API where the browser supports it.
+	onMount(startSmoothScroll);
+
+	const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	// Pages hand over with the View Transitions API: the old page sinks and blurs out,
+	// the new one rises in. Browsers without it get a CSS entrance on <main> instead.
 	onNavigate((navigation) => {
-		if (!document.startViewTransition || document.visibilityState === 'hidden') return;
-		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		if (navigation.from?.url.pathname === navigation.to?.url.pathname) return;
+		if (reducedMotion() || document.visibilityState === 'hidden') return;
+		if (!document.startViewTransition) {
+			navigation.complete.then(() => {
+				main.classList.remove('page-enter');
+				void main.offsetWidth; // restart the animation
+				main.classList.add('page-enter');
+			});
+			return;
+		}
 
 		return new Promise((resolve) => {
 			const transition = document.startViewTransition(async () => {
@@ -26,20 +42,37 @@
 	});
 
 	// One observer reveals every [data-reveal] element as it scrolls into view.
+	// Masked headings start fully clipped, which IntersectionObserver reads as zero area,
+	// so those are watched through their parent instead.
 	let observer: IntersectionObserver | undefined;
+	const watched = new Map<Element, Element[]>();
 
 	afterNavigate(() => {
 		observer ??= new IntersectionObserver(
 			(entries) => {
 				for (const entry of entries) {
 					if (!entry.isIntersecting) continue;
-					entry.target.classList.add('in');
+					for (const el of watched.get(entry.target) ?? []) el.classList.add('in');
+					watched.delete(entry.target);
 					observer?.unobserve(entry.target);
 				}
 			},
-			{ rootMargin: '0px 0px -6% 0px', threshold: 0.06 }
+			{ rootMargin: '0px 0px -10% 0px', threshold: 0.08 }
 		);
-		document.querySelectorAll('[data-reveal]:not(.in)').forEach((el) => observer?.observe(el));
+		// Elements from the previous page are gone; start fresh.
+		observer.disconnect();
+		watched.clear();
+		for (const el of document.querySelectorAll('[data-reveal]:not(.in)')) {
+			const target = el.matches('.title, .display') && el.parentElement ? el.parentElement : el;
+			const group = watched.get(target);
+			if (group) {
+				if (!group.includes(el)) group.push(el);
+			} else {
+				watched.set(target, [el]);
+				observer.observe(target);
+			}
+		}
+		document.documentElement.classList.add('reveal-ready');
 	});
 </script>
 
@@ -50,7 +83,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 <Nav />
-<main id="main">
+<main id="main" bind:this={main}>
 	{@render children()}
 </main>
 <Footer />

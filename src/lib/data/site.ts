@@ -4,7 +4,7 @@ export const site = {
 	role: 'Lead Full-Stack Engineer · Rust',
 	location: 'Lagos, Nigeria',
 	timezone: 'WAT (UTC+1)',
-	url: 'https://portfolio-rust-nine-11.vercel.app',
+	url: 'https://chizaram-ugochukwu.cv',
 	email: 'ugochukwuchizaram850@gmail.com',
 	description:
 		'Chizaram Ugochukwu is a Rust and full-stack engineer in Lagos, Nigeria, building real-time systems, LLM pipelines and the APIs behind them.'

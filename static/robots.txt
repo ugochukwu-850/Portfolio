@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://portfolio-rust-nine-11.vercel.app/sitemap.xml
+Sitemap: https://chizaram-ugochukwu.cv/sitemap.xml

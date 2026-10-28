@@ -3,8 +3,9 @@
 	import { fade } from 'svelte/transition';
 	import Seo from '#lib/components/Seo.svelte';
 	import PageHero from '#lib/components/PageHero.svelte';
-	import Orbits from '#lib/visuals/Orbits.svelte';
-	import Waveform from '#lib/visuals/Waveform.svelte';
+	import Network from '#lib/visuals/Network.svelte';
+	import Equalizer from '#lib/visuals/Equalizer.svelte';
+	import JomifyGallery from '#lib/components/JomifyGallery.svelte';
 	import { categories, featured, openSource, projects, type Category } from '#lib/data/projects.ts';
 	import { pad } from '#lib/format.ts';
 
@@ -27,11 +28,11 @@
 	lead="Desktop apps, AI tools and systems software — mostly Rust, always shipped."
 	seed={14}
 >
-	{#snippet visual()}<div class="hero-orbits"><Orbits /></div>{/snippet}
+	{#snippet visual()}<div class="hero-network"><Network seed={44} nodes={30} /></div>{/snippet}
 </PageHero>
 
-<section id={featured.id} class="featured">
-	<div class="featured__visual" aria-hidden="true"><Waveform seed={9} lines={9} /></div>
+<section id={featured.id} class="featured" data-rule>
+	<div class="featured__visual" aria-hidden="true" data-drift><Equalizer bars={72} seed={9} /></div>
 	<div class="container featured__inner">
 		<div class="featured__copy">
 			<p class="label" data-reveal>Featured · Open source</p>
@@ -62,6 +63,9 @@
 				<dd>{featured.stack.join(' · ')}</dd>
 			</div>
 		</dl>
+	</div>
+	<div class="featured__gallery" data-reveal style="--d: 120ms">
+		<JomifyGallery />
 	</div>
 </section>
 
@@ -108,7 +112,7 @@
 </section>
 
 <section class="section container oss" aria-labelledby="oss-title">
-	<div class="oss__grid">
+	<div class="oss__grid" data-rule>
 		<div class="oss__head">
 			<p class="label" data-reveal>Open source</p>
 			<h2 id="oss-title" class="title" data-reveal style="--d: 80ms">{openSource.project}</h2>
@@ -137,17 +141,20 @@
 </section>
 
 <style>
-	.hero-orbits {
+	.hero-network {
 		position: absolute;
-		inset: 0 -10% 0 35%;
-		opacity: 0.9;
+		inset: 0 0 0 32%;
+		opacity: 0.85;
+		mask-image: linear-gradient(to right, transparent, #000 40%);
+		-webkit-mask-image: linear-gradient(to right, transparent, #000 40%);
 	}
 
 	.featured {
 		position: relative;
 		display: grid;
-		align-items: center;
-		min-height: min(86svh, 860px);
+		grid-template-columns: minmax(0, 1fr);
+		align-content: center;
+		gap: clamp(56px, 7vw, 96px);
 		padding-block: clamp(96px, 12vw, 160px);
 		border-top: 1px solid var(--line);
 		overflow: hidden;
@@ -155,11 +162,12 @@
 		scroll-margin-top: 0;
 	}
 
+	/* Equalizer sits behind the copy, rising from the gallery line */
 	.featured__visual {
 		position: absolute;
-		inset: 15% 0 15% 0;
+		inset: 8% 0 52% 0;
 		z-index: -1;
-		opacity: 0.55;
+		opacity: 0.3;
 	}
 
 	.featured__inner {
@@ -389,9 +397,9 @@
 			gap: 20px;
 		}
 
-		.hero-orbits {
-			inset: 0 -40% 20% 0;
-			opacity: 0.6;
+		.hero-network {
+			inset: 0;
+			opacity: 0.5;
 		}
 	}
 </style>

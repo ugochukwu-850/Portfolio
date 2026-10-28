@@ -22,8 +22,8 @@
 	} = $props();
 </script>
 
-<section {id} class="panel {align}">
-	<div class="panel__visual" aria-hidden="true">{@render visual()}</div>
+<section {id} class="panel {align}" data-rule>
+	<div class="panel__visual" aria-hidden="true" data-drift>{@render visual()}</div>
 	<div class="container panel__inner">
 		<div class="panel__copy">
 			<p class="label" data-reveal>{label}</p>

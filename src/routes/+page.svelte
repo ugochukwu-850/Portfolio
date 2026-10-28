@@ -6,7 +6,11 @@
 	import Starfield from '#lib/visuals/Starfield.svelte';
 	import Horizon from '#lib/visuals/Horizon.svelte';
 	import Waveform from '#lib/visuals/Waveform.svelte';
-	import Orbits from '#lib/visuals/Orbits.svelte';
+	import Equalizer from '#lib/visuals/Equalizer.svelte';
+	import ShootingStars from '#lib/visuals/ShootingStars.svelte';
+	import { parallax } from '#lib/actions/parallax.ts';
+	import homeShot from '#lib/assets/jomify/home.webp';
+	import homeShotSm from '#lib/assets/jomify/home-sm.webp';
 	import Network from '#lib/visuals/Network.svelte';
 	import { site, socials, stats } from '#lib/data/site.ts';
 	import type { PageProps } from './$types';
@@ -33,13 +37,16 @@
 	{@html jsonLd}
 </svelte:head>
 
-<section class="hero">
+<section class="hero" use:parallax>
 	<div class="hero__bg" aria-hidden="true">
-		<Starfield count={240} seed={11} />
-		<Horizon />
+		<div class="layer layer--stars">
+			<Starfield count={240} seed={11} />
+			<ShootingStars />
+		</div>
+		<div class="layer layer--planet"><Horizon /></div>
 	</div>
 
-	<div class="container hero__inner">
+	<div class="container hero__inner" data-hero-out>
 		<p class="label intro">{site.name} — {site.location}</p>
 		<h1 class="display intro" style="--d: 100ms">Engineering real-time systems in Rust</h1>
 		<p class="lead intro" style="--d: 200ms">
@@ -90,7 +97,21 @@
 		{ label: 'Source', href: 'https://github.com/ugochukwu-850/Jomify', external: true }
 	]}
 >
-	{#snippet visual()}<Orbits />{/snippet}
+	{#snippet visual()}
+		<div class="jomify">
+			<div class="jomify__eq"><Equalizer seed={31} bars={84} /></div>
+			<img
+				src={homeShot}
+				srcset="{homeShotSm} 800w, {homeShot} 1600w"
+				sizes="(max-width: 860px) 90vw, 52vw"
+				width="1600"
+				height="858"
+				alt="Jomify music player showing featured playlists and an album gallery"
+				loading="lazy"
+				decoding="async"
+			/>
+		</div>
+	{/snippet}
 </MissionPanel>
 
 <section class="section log">
@@ -112,7 +133,7 @@
 	</div>
 </section>
 
-<section id="contact" class="contact">
+<section id="contact" class="contact" data-rule>
 	<div class="contact__bg" aria-hidden="true">
 		<Starfield count={120} seed={3} />
 	</div>
@@ -155,6 +176,28 @@
 		position: absolute;
 		inset: 0;
 		z-index: -1;
+	}
+
+	/* Layers drift a few pixels against the pointer; the oversize hides their edges. */
+	.layer {
+		position: absolute;
+		inset: -24px;
+		will-change: translate;
+	}
+
+	.layer--stars {
+		translate: calc(var(--px, 0) * -7px) calc(var(--py, 0) * -5px);
+		animation: star-drift 120s linear infinite alternate;
+	}
+
+	.layer--planet {
+		translate: calc(var(--px, 0) * -16px) calc(var(--py, 0) * -9px);
+	}
+
+	@keyframes star-drift {
+		to {
+			transform: translate3d(-18px, 10px, 0);
+		}
 	}
 
 	.hero__bg::after {
@@ -288,6 +331,34 @@
 	.contact__mail {
 		color: var(--fg-3);
 		font-size: 13px;
+	}
+
+	.jomify {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		place-items: center;
+		perspective: 1600px;
+	}
+
+	.jomify__eq {
+		position: absolute;
+		inset: 52% 0 0 0;
+		opacity: 0.55;
+	}
+
+	.jomify img {
+		position: relative;
+		width: min(86%, 840px);
+		height: auto;
+		border: 1px solid var(--line-2);
+		box-shadow: 0 40px 120px -30px rgb(var(--glow) / 0.35);
+		transform: rotateY(-14deg) rotateX(4deg) rotate(1deg);
+		transition: transform 1.2s var(--ease);
+	}
+
+	.jomify:hover img {
+		transform: rotateY(-6deg) rotateX(2deg) rotate(0.5deg);
 	}
 
 	@media (max-width: 960px) {
