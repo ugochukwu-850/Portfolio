@@ -6,6 +6,10 @@
 	import { topics, type Topic } from '#lib/data/topics.ts';
 	import { socials } from '#lib/data/site.ts';
 	import { formatDate } from '#lib/format.ts';
+	import { abs, breadcrumbs, graph, webPage, PERSON_ID } from '#lib/seo.ts';
+
+	const desc =
+		'Articles on Rust by Chizaram Ugochukwu, published on Mastering Backend: ownership and memory, traits and types, concurrency, macros and building real systems.';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -21,8 +25,30 @@
 
 <Seo
 	title="Writing — Chizaram Ugochukwu"
-	description="Articles on Rust by Chizaram Ugochukwu, published on Mastering Backend: ownership and memory, traits and types, concurrency, macros and building real systems."
+	description={desc}
 	path="/writing"
+	schema={[
+		graph(
+			webPage('/writing', 'Writing — Chizaram Ugochukwu', desc, 'CollectionPage'),
+			breadcrumbs({ name: 'Writing', path: '/writing' }),
+			{
+				'@type': 'ItemList',
+				name: 'Rust articles by Chizaram Ugochukwu',
+				itemListElement: data.articles.map((a, i) => ({
+					'@type': 'ListItem',
+					position: i + 1,
+					item: {
+						'@type': 'BlogPosting',
+						headline: a.title,
+						description: a.description,
+						datePublished: a.date,
+						url: abs(a.href),
+						author: { '@id': PERSON_ID }
+					}
+				}))
+			}
+		)
+	]}
 />
 
 <PageHero

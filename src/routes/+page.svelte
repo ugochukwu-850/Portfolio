@@ -13,31 +13,25 @@
 	import { showcases } from '#lib/data/projects.ts';
 	import Network from '#lib/visuals/Network.svelte';
 	import { site, socials, stats } from '#lib/data/site.ts';
+	import { graph, person, website, webPage, PERSON_ID } from '#lib/seo.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 
 	const [ams, jomify] = showcases;
-
-	const person = {
-		'@context': 'https://schema.org',
-		'@type': 'Person',
-		name: site.name,
-		jobTitle: 'Lead Full-Stack Engineer',
-		url: site.url,
-		email: `mailto:${site.email}`,
-		address: { '@type': 'PostalAddress', addressLocality: 'Lagos', addressCountry: 'NG' },
-		sameAs: socials.map((s) => s.href)
-	};
-	const jsonLd = `<script type="application/ld+json">${JSON.stringify(person)}</` + 'script>';
 </script>
 
-<Seo title="{site.name} — Rust & Full-Stack Engineer" path="/" />
-
-<svelte:head>
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html jsonLd}
-</svelte:head>
+<Seo
+	title="{site.name} — Rust & Full-Stack Engineer in Lagos, Nigeria"
+	path="/"
+	type="profile"
+	schema={[
+		graph(person, website, {
+			...webPage('/', `${site.name} — Rust & Full-Stack Engineer`, site.description, 'ProfilePage'),
+			mainEntity: { '@id': PERSON_ID }
+		})
+	]}
+/>
 
 <section class="hero" use:parallax>
 	<div class="hero__bg" aria-hidden="true">

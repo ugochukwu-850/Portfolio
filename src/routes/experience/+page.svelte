@@ -5,14 +5,27 @@
 	import Network from '#lib/visuals/Network.svelte';
 	import { awards, capabilities, certifications, education, roles } from '#lib/data/experience.ts';
 	import { pad } from '#lib/format.ts';
+	import { breadcrumbs, graph, webPage, PERSON_ID } from '#lib/seo.ts';
+
+	const desc =
+		'Engineering roles across Rust backends, real-time AI and full-stack products: Trenqit, Searchless, Rise Academy (Risevest), Ayomide Foundation and Index UI.';
 
 	let detail = $state<'overview' | 'full'>('overview');
 </script>
 
 <Seo
 	title="Experience — Chizaram Ugochukwu"
-	description="Engineering roles across Rust backends, real-time AI and full-stack products: Trenqit, Searchless, Rise Academy (Risevest), Ayomide Foundation and Index UI."
+	description={desc}
 	path="/experience"
+	schema={[
+		graph(
+			{
+				...webPage('/experience', 'Experience — Chizaram Ugochukwu', desc, 'ProfilePage'),
+				mainEntity: { '@id': PERSON_ID }
+			},
+			breadcrumbs({ name: 'Experience', path: '/experience' })
+		)
+	]}
 />
 
 <PageHero
