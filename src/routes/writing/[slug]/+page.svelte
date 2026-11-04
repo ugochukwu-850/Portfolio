@@ -3,10 +3,37 @@
 	import ArticleCard from '#lib/components/ArticleCard.svelte';
 	import Starfield from '#lib/visuals/Starfield.svelte';
 	import { formatDate } from '#lib/format.ts';
+	import { abs, breadcrumbs, graph, person, PERSON_ID, WEBSITE_ID } from '#lib/seo.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 	const article = $derived(data.article);
+	const schema = $derived([
+		graph(
+			{
+				'@type': 'TechArticle',
+				'@id': `${abs(article.href)}#article`,
+				headline: article.title,
+				description: article.description,
+				datePublished: article.date,
+				dateModified: article.date,
+				url: abs(article.href),
+				mainEntityOfPage: abs(article.href),
+				image: abs('/og.png'),
+				keywords: ['Rust', ...article.topics].join(', '),
+				timeRequired: `PT${article.readingMinutes}M`,
+				inLanguage: 'en',
+				author: { '@id': PERSON_ID },
+				publisher: { '@id': PERSON_ID },
+				isPartOf: { '@id': WEBSITE_ID }
+			},
+			person,
+			breadcrumbs(
+				{ name: 'Writing', path: '/writing' },
+				{ name: article.title, path: article.href }
+			)
+		)
+	]);
 </script>
 
 <Seo
@@ -14,6 +41,8 @@
 	description={article.description}
 	path={article.href}
 	type="article"
+	published={article.date}
+	{schema}
 />
 
 <article>

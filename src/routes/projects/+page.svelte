@@ -14,6 +14,31 @@
 		type Category
 	} from '#lib/data/projects.ts';
 	import { pad } from '#lib/format.ts';
+	import { breadcrumbs, graph, webPage, PERSON_ID } from '#lib/seo.ts';
+
+	const desc =
+		'Products, desktop apps, AI tools and systems software by Chizaram Ugochukwu: ArtMostSphere, Jomify, DocConvo, Inspector and more.';
+	const projectList = {
+		'@type': 'ItemList',
+		name: 'Projects by Chizaram Ugochukwu',
+		itemListElement: [...showcases, ...projects].map((p, i) => {
+			const source = p.links?.find((l) => l.href.includes('github.com'))?.href;
+			const live = p.links?.find((l) => !l.href.includes('github.com'))?.href;
+			return {
+				'@type': 'ListItem',
+				position: i + 1,
+				item: {
+					'@type': 'SoftwareSourceCode',
+					name: p.name,
+					description: p.summary,
+					programmingLanguage: p.stack.slice(0, 3),
+					...(source && { codeRepository: source }),
+					...(live && { url: live }),
+					author: { '@id': PERSON_ID }
+				}
+			};
+		})
+	};
 
 	let filter = $state<Category | 'All'>('All');
 	const visible = $derived(
@@ -24,8 +49,15 @@
 
 <Seo
 	title="Projects — Chizaram Ugochukwu"
-	description="Products, desktop apps, AI tools and systems software by Chizaram Ugochukwu: ArtMostSphere, Jomify, DocConvo, Inspector and more."
+	description={desc}
 	path="/projects"
+	schema={[
+		graph(
+			webPage('/projects', 'Projects — Chizaram Ugochukwu', desc, 'CollectionPage'),
+			breadcrumbs({ name: 'Projects', path: '/projects' }),
+			projectList
+		)
+	]}
 />
 
 <PageHero
